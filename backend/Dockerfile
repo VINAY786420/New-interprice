@@ -1,12 +1,16 @@
 FROM python:3.11-slim
 
-WORKDIR /app
+WORKDIR /app/backend
 
-COPY requirements.txt .
+# Install dependencies
+COPY backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+# Copy backend source
+COPY backend/ .
 
+ENV PORT=8000
 EXPOSE 8000
 
-CMD ["python", "app.py"]
+# Use gunicorn for production
+CMD ["gunicorn", "app:app", "--bind", "0.0.0.0:8000", "--workers", "2"]

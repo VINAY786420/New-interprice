@@ -1,12 +1,6 @@
-FROM python:3.11-slim
+# Root Dockerfile intentionally replaced to avoid accidental builds from the repository root.
+# Services should use the Dockerfiles inside their folders (backend/Dockerfile, frontend/Dockerfile, scrapers/Dockerfile).
+# If you need a root-level Dockerfile later, recreate it intentionally.
 
-WORKDIR /app
-
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-COPY . .
-
-EXPOSE 10000
-
-CMD ["python", "app.py"]
+FROM scratch
+CMD ["/bin/true"]

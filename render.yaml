@@ -25,13 +25,3 @@ services:
     repo: https://github.com/VINAY786420/New-interprice
     branch: main
     dockerfilePath: scrapers/Dockerfile
-
-  - type: web
-    name: admin
-    runtime: docker
-    repo: https://github.com/VINAY786420/New-interprice
-    branch: main
-    dockerfilePath: admin/Dockerfile
-    envVars:
-      - key: PORT
-        value: 3001
