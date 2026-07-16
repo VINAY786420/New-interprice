@@ -1,0 +1,37 @@
+services:
+  - type: web
+    name: backend
+    runtime: docker
+    repo: https://github.com/VINAY786420/New-interprice
+    branch: main
+    dockerfilePath: backend/Dockerfile
+    envVars:
+      - key: PORT
+        value: 8000
+
+  - type: web
+    name: frontend
+    runtime: docker
+    repo: https://github.com/VINAY786420/New-interprice
+    branch: main
+    dockerfilePath: frontend/Dockerfile
+    envVars:
+      - key: PORT
+        value: 3000
+
+  - type: worker
+    name: scrapers
+    runtime: docker
+    repo: https://github.com/VINAY786420/New-interprice
+    branch: main
+    dockerfilePath: scrapers/Dockerfile
+
+  - type: web
+    name: admin
+    runtime: docker
+    repo: https://github.com/VINAY786420/New-interprice
+    branch: main
+    dockerfilePath: admin/Dockerfile
+    envVars:
+      - key: PORT
+        value: 3001
