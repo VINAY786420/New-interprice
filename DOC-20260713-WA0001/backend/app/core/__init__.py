@@ -1,1 +1,1 @@
-from .config import settings
+# core package initializer

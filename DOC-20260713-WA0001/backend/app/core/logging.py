@@ -1,35 +1,30 @@
-"""Structured logging configuration."""
-import structlog
 import logging
 import sys
 
+class SimpleLogger:
+    def __init__(self, name: str = "sdv"):
+        self._logger = logging.getLogger(name)
 
-def configure_logging():
-    """Configure structured logging for the application."""
-    structlog.configure(
-        processors=[
-            structlog.stdlib.filter_by_level,
-            structlog.stdlib.add_logger_name,
-            structlog.stdlib.add_log_level,
-            structlog.stdlib.PositionalArgumentsFormatter(),
-            structlog.processors.TimeStamper(fmt="iso"),
-            structlog.processors.StackInfoRenderer(),
-            structlog.processors.format_exc_info,
-            structlog.processors.UnicodeDecoder(),
-            structlog.processors.JSONRenderer()
-        ],
-        context_class=dict,
-        logger_factory=structlog.stdlib.LoggerFactory(),
-        wrapper_class=structlog.stdlib.BoundLogger,
-        cache_logger_on_first_use=True,
-    )
+    def info(self, msg: str, **kwargs):
+        if kwargs:
+            self._logger.info(f"{msg} | " + " ".join(f"{k}={v}" for k, v in kwargs.items()))
+        else:
+            self._logger.info(msg)
 
-    # Configure standard library logging
-    logging.basicConfig(
-        format="%(message)s",
-        stream=sys.stdout,
-        level=logging.INFO,
-    )
+    def error(self, msg: str, **kwargs):
+        if kwargs:
+            self._logger.error(f"{msg} | " + " ".join(f"{k}={v}" for k, v in kwargs.items()))
+        else:
+            self._logger.error(msg)
+
+logger = SimpleLogger()
 
 
-logger = structlog.get_logger()
+def configure_logging(level: str = "INFO"):
+    root = logging.getLogger()
+    if not root.handlers:
+        handler = logging.StreamHandler(sys.stdout)
+        fmt = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        handler.setFormatter(logging.Formatter(fmt))
+        root.addHandler(handler)
+    root.setLevel(getattr(logging, level.upper(), logging.INFO))
