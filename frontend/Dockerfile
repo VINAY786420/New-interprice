@@ -1,16 +1,17 @@
-# Multi-stage build: build React app and serve with nginx
-
-# 1) Build stage
+# frontend/Dockerfile (quick fix): allow build without package-lock.json
+# Build stage
 FROM node:18-alpine AS build
 WORKDIR /app
 
-COPY package.json package-lock.json ./
-RUN npm ci --silent
+# Copy package.json only and use npm install to work without package-lock.json
+COPY package.json ./
+RUN npm install --silent
 
+# Copy the rest of the source and build
 COPY . .
 RUN npm run build
 
-# 2) Production stage
+# Production stage: serve with nginx
 FROM nginx:stable-alpine
 
 # Remove default nginx static content and replace with React build
