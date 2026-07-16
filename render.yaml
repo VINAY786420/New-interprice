@@ -17,7 +17,7 @@ services:
     dockerfilePath: frontend/Dockerfile
     envVars:
       - key: PORT
-        value: 3000
+        value: 80
 
   - type: worker
     name: scrapers
