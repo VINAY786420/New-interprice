@@ -1,0 +1,47 @@
+.Admin {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.Admin-header {
+  background-color: #1a1a1a;
+  color: white;
+  padding: 2rem;
+  text-align: center;
+}
+
+.Admin-header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+}
+
+.Admin-main {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+
+.Stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.Stat-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.Stat-card h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.Stat-value {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #007bff;
+  margin: 1rem 0;
+}
