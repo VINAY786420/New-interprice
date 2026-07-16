@@ -7,8 +7,14 @@ WORKDIR /app
 COPY package.json ./
 RUN npm install --silent
 
-# Copy the rest of the source and build
+# Copy the rest of the source
 COPY . .
+
+# Accept REACT_APP_API_URL as a build-arg and export it as an ENV so react-scripts can read it at build time
+ARG REACT_APP_API_URL=""
+ENV REACT_APP_API_URL=${REACT_APP_API_URL}
+
+# Build the production bundle
 RUN npm run build
 
 # Production stage: serve with nginx
