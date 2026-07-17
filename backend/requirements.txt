@@ -1,7 +1,11 @@
 flask
+flask-cors
+flask-sqlalchemy
 requests
 beautifulsoup4
 selenium
 pandas
 gunicorn
-flask-cors
+pyjwt
+python-dotenv
+psycopg2-binary
