@@ -3,9 +3,20 @@ Interprice Backend - Main Application
 """
 
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 import os
 
 app = Flask(__name__)
+
+# ✅ CORS Configuration - Allow cross-origin requests
+CORS(app, resources={
+    r"/*": {
+        "origins": ["*"],
+        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization"],
+        "supports_credentials": True
+    }
+})
 
 PORT = int(os.environ.get('PORT', 8000))
 
